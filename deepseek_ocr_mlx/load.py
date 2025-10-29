@@ -44,8 +44,8 @@ def load_model(model_path: Path, *, lazy: bool = False) -> DeepSeekOCRForCausalL
 
     casted: dict[str, mx.array] = {}
     for name, tensor in weights.items():
-        if tensor.dtype in (mx.float16, mx.bfloat16):
-            casted[name] = tensor.astype(mx.float32)
+        if tensor.dtype == mx.float32:
+            casted[name] = tensor.astype(mx.float16)
         else:
             casted[name] = tensor
 
